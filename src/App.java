@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 public class App extends Application {
 
@@ -23,14 +24,18 @@ public class App extends Application {
         stage.setMinWidth(500);
 
         HBox parent = new HBox();
+        Pane canvas = new Pane();
+        canvas.prefWidthProperty().bind(parent.widthProperty());
+        canvas.setPrefHeight(500);
+        canvas.setStyle("-fx-background-color: #252525;");
         
         TreeItem<String> rootItem = new TreeItem<String>("GATES");
-        
+
         TreeItem<String> basicgates = new TreeItem<String>("BASIC");
         basicgates.getChildren().add(new TreeItem<String>("AND"));
         basicgates.getChildren().add(new TreeItem<String>("NOT"));
         rootItem.getChildren().add(basicgates);
-        
+
         TreeItem<String> customgates = new TreeItem<String>("CUSTOM");
         customgates.getChildren().add(new TreeItem<String>("NAND"));
         customgates.getChildren().add(new TreeItem<String>("OR"));
@@ -40,14 +45,14 @@ public class App extends Application {
         TreeView<String> treeView = new TreeView<String>();
         treeView.setRoot(rootItem);
         parent.getChildren().add(treeView);
+        parent.getChildren().add(canvas);
         
         treeView.setShowRoot(false);
 
-        
         Scene scene = new Scene(parent);
-        
+
         stage.setScene(scene);
-        
+
         stage.setScene(scene);
         stage.show();
     }
