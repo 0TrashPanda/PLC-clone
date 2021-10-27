@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 public class App extends Application {
 
@@ -22,30 +22,32 @@ public class App extends Application {
         stage.setMinHeight(250);
         stage.setMinWidth(500);
 
+        HBox parent = new HBox();
+        
         TreeItem<String> rootItem = new TreeItem<String>("GATES");
-
+        
         TreeItem<String> basicgates = new TreeItem<String>("BASIC");
         basicgates.getChildren().add(new TreeItem<String>("AND"));
         basicgates.getChildren().add(new TreeItem<String>("NOT"));
         rootItem.getChildren().add(basicgates);
-
+        
         TreeItem<String> customgates = new TreeItem<String>("CUSTOM");
         customgates.getChildren().add(new TreeItem<String>("NAND"));
         customgates.getChildren().add(new TreeItem<String>("OR"));
         customgates.getChildren().add(new TreeItem<String>("XOR"));
         rootItem.getChildren().add(customgates);
-
+        
         TreeView<String> treeView = new TreeView<String>();
         treeView.setRoot(rootItem);
-
+        parent.getChildren().add(treeView);
+        
         treeView.setShowRoot(false);
 
-        VBox vbox = new VBox(treeView);
-
-        Scene scene = new Scene(vbox);
-
+        
+        Scene scene = new Scene(parent);
+        
         stage.setScene(scene);
-
+        
         stage.setScene(scene);
         stage.show();
     }
