@@ -28,7 +28,7 @@ public class App extends Application {
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.setPrefHeight(500);
         canvas.setStyle("-fx-background-color: #252525;");
-        
+
         TreeItem<String> rootItem = new TreeItem<String>("GATES");
 
         TreeItem<String> basicgates = new TreeItem<String>("BASIC");
@@ -41,12 +41,13 @@ public class App extends Application {
         customgates.getChildren().add(new TreeItem<String>("OR"));
         customgates.getChildren().add(new TreeItem<String>("XOR"));
         rootItem.getChildren().add(customgates);
-        
+
         TreeView<String> treeView = new TreeView<String>();
         treeView.setRoot(rootItem);
+        DragResizerXY.makeResizable(treeView);
         parent.getChildren().add(treeView);
         parent.getChildren().add(canvas);
-        
+
         treeView.setShowRoot(false);
 
         Scene scene = new Scene(parent);
