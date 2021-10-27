@@ -27,7 +27,6 @@ public class App extends Application {
         Pane canvas = new Pane();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.setPrefHeight(500);
-        canvas.setStyle("-fx-background-color: #252525;");
 
         TreeItem<String> rootItem = new TreeItem<String>("GATES");
 
@@ -43,6 +42,8 @@ public class App extends Application {
         rootItem.getChildren().add(customgates);
 
         TreeView<String> treeView = new TreeView<String>();
+        canvas.getStyleClass().add("treeView");
+
         treeView.setRoot(rootItem);
         DragResizerXY.makeResizable(treeView);
         parent.getChildren().add(treeView);
@@ -51,8 +52,8 @@ public class App extends Application {
         treeView.setShowRoot(false);
 
         Scene scene = new Scene(parent);
-
-        stage.setScene(scene);
+        String css = this.getClass().getResource("main.css").toExternalForm();
+        scene.getStylesheets().add(css);
 
         stage.setScene(scene);
         stage.show();
