@@ -1,4 +1,17 @@
-.treeView {
-  -fx-background-color: #333333;
+.canvas {
+  -fx-background-color: #272727;
   background-color: aqua;
+}
+
+.circle {
+  -fx-background-color: #d70000;
+  background-color: aqua;
+  -fx-base: #a82692;
+}
+
+.tree-cell {
+  -fx-base: #242424;
+  -fx-control-inner-background: derive(-fx-base, 20%);
+  -fx-control-inner-background-alt: derive(-fx-control-inner-background, -10%);
+  -fx-accent: #26b581;
 }
