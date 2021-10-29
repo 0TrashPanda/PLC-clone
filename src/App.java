@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.robot.Robot;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -19,9 +21,14 @@ import javafx.scene.shape.Circle;
 
 public class App extends Application {
 
+    Robot robot = new Robot();
+
     public static void main(String[] args) {
         launch(args);
     }
+
+    int move = 1;
+    int hory = 200;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,11 +39,10 @@ public class App extends Application {
         stage.setMaximized(true);
         stage.setMinHeight(250);
         stage.setMinWidth(500);
-
+        
         HBox parent = new HBox();
         Pane canvas = new Pane();
         canvas.prefWidthProperty().bind(parent.widthProperty());
-        canvas.setPrefHeight(500);
 
         TreeItem<String> rootItem = new TreeItem<String>("GATES");
 
@@ -88,14 +94,14 @@ public class App extends Application {
             if (db.hasString()) {
                 System.out.println("Dropped: " + db.getString());
 
-                int move = 2;
-                int x = 100 * move;
-                Circle circle2 = new Circle(x, 100 * move, 100);
-                circle.getStyleClass().add("circle");
+                Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
+                System.out.println(boundsInScreen.getMaxX());
+
+                System.out.println(hory);
+                Circle circle2 = new Circle(robot.getMousePosition().getX()-boundsInScreen.getMinX(), robot.getMousePosition().getY()-boundsInScreen.getMinY(), 10);
                 CircleGroup.getChildren().add(circle2);
                 circle2.setFill(Color.PINK);
                 event.setDropCompleted(true);
-                move = move + 1;
 
             } else {
                 event.setDropCompleted(false);
@@ -111,17 +117,6 @@ public class App extends Application {
 
                 event.consume();
             }
-        });
-
-        canvas.setOnDragDropped((DragEvent event) -> {
-            Dragboard db = event.getDragboard();
-            if (db.hasString()) {
-                System.out.println("Dropped: " + db.getString());
-                event.setDropCompleted(true);
-            } else {
-                event.setDropCompleted(false);
-            }
-            event.consume();
         });
 
         canvas.getChildren().add(CircleGroup);
