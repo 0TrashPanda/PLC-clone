@@ -1,7 +1,10 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -77,9 +80,51 @@ public class App extends Application {
             content.putString("Circle source text");
             db.setContent(content);
         });
-        circle.setOnMouseDragged((MouseEvent event) -> {
-            event.setDragDetect(true);
+
+        Group CircleGroup = new Group();
+
+        canvas.setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                System.out.println("Dropped: " + db.getString());
+
+                int move = 2;
+                int x = 100 * move;
+                Circle circle2 = new Circle(x, 100 * move, 100);
+                circle.getStyleClass().add("circle");
+                CircleGroup.getChildren().add(circle2);
+                circle2.setFill(Color.PINK);
+                event.setDropCompleted(true);
+                move = move + 1;
+
+            } else {
+                event.setDropCompleted(false);
+            }
+            event.consume();
         });
+
+        canvas.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != canvas && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+
+                event.consume();
+            }
+        });
+
+        canvas.setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                System.out.println("Dropped: " + db.getString());
+                event.setDropCompleted(true);
+            } else {
+                event.setDropCompleted(false);
+            }
+            event.consume();
+        });
+
+        canvas.getChildren().add(CircleGroup);
 
         stage.setScene(scene);
         stage.show();
