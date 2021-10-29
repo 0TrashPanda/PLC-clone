@@ -1,3 +1,4 @@
+import java.util.List;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -18,6 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import java.util.Arrays;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.layout.VBox;
 
 public class App extends Application {
 
@@ -26,6 +30,12 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    List<Gates> gates = Arrays.<Gates>asList(
+        new Gates("NOT", "BASIC"),
+        new Gates("OR", "EXOTIC"),
+        new Gates("AND", "BASIC"));
+    TreeItem<String> rootNode = new TreeItem<String>("GATES");
 
     int move = 1;
     int hory = 200;
@@ -43,24 +53,31 @@ public class App extends Application {
         HBox parent = new HBox();
         Pane canvas = new Pane();
         canvas.prefWidthProperty().bind(parent.widthProperty());
-
-        TreeItem<String> rootItem = new TreeItem<String>("GATES");
-
-        TreeItem<String> basicgates = new TreeItem<String>("BASIC");
-        basicgates.getChildren().add(new TreeItem<String>("AND"));
-        basicgates.getChildren().add(new TreeItem<String>("NOT"));
-        rootItem.getChildren().add(basicgates);
-
-        TreeItem<String> customgates = new TreeItem<String>("CUSTOM");
-        customgates.getChildren().add(new TreeItem<String>("NAND"));
-        customgates.getChildren().add(new TreeItem<String>("OR"));
-        customgates.getChildren().add(new TreeItem<String>("XOR"));
-        rootItem.getChildren().add(customgates);
-
-        TreeView<String> treeView = new TreeView<String>();
         canvas.getStyleClass().add("canvas");
-        treeView.getStyleClass().add("TreeView");
-        treeView.setRoot(rootItem);
+
+        rootNode.setExpanded(true);
+        for (Gates gate : gates) {
+            TreeItem<String> empLeaf = new TreeItem<String>(gate.getName());
+            boolean found = false;
+            for (TreeItem<String> depNode : rootNode.getChildren()) {
+                if (depNode.getValue().contentEquals(gate.getDepartment())) {
+                    depNode.getChildren().add(empLeaf);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                TreeItem<String> depNode = new TreeItem<String>(gate.getDepartment());
+                rootNode.getChildren().add(depNode);
+                depNode.getChildren().add(empLeaf);
+            }
+        }
+        
+        stage.setTitle("Tree View Sample");
+        VBox box = new VBox();
+        parent.getChildren().add(box);
+        TreeView<String> treeView = new TreeView<String>(rootNode);
+
         DragResizerXY.makeResizable(treeView);
         parent.getChildren().add(treeView);
         parent.getChildren().add(canvas);
@@ -98,7 +115,8 @@ public class App extends Application {
                 System.out.println(boundsInScreen.getMaxX());
 
                 System.out.println(hory);
-                Circle circle2 = new Circle(robot.getMousePosition().getX()-boundsInScreen.getMinX(), robot.getMousePosition().getY()-boundsInScreen.getMinY(), 10);
+                Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
+                        robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
                 CircleGroup.getChildren().add(circle2);
                 circle2.setFill(Color.PINK);
                 event.setDropCompleted(true);
@@ -119,10 +137,104 @@ public class App extends Application {
             }
         });
 
+        // private final class TextFieldTreeCellImpl extends TreeCell<String> {
+
+        // private TextField textField;
+
+        // public TextFieldTreeCellImpl() {
+        // }
+
+        // @Override
+        // public void startEdit() {
+        // super.startEdit();
+
+        // if (textField == null) {
+        // createTextField();
+        // }
+        // setText(null);
+        // setGraphic(textField);
+        // textField.selectAll();
+        // }
+
+        // @Override
+        // public void cancelEdit() {
+        // super.cancelEdit();
+        // setText((String) getItem());
+        // setGraphic(getTreeItem().getGraphic());
+        // }
+
+        // @Override
+        // public void updateItem(String item, boolean empty) {
+        // super.updateItem(item, empty);
+
+        // if (empty) {
+        // setText(null);
+        // setGraphic(null);
+        // } else {
+        // if (isEditing()) {
+        // if (textField != null) {
+        // textField.setText(getString());
+        // }
+        // setText(null);
+        // setGraphic(textField);
+        // } else {
+        // setText(getString());
+        // setGraphic(getTreeItem().getGraphic());
+        // }
+        // }
+        // }
+
+        // private void createTextField() {
+        // textField = new TextField(getString());
+        // textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+        // @Override
+        // public void handle(KeyEvent t) {
+        // if (t.getCode() == KeyCode.ENTER) {
+        // commitEdit(textField.getText());
+        // } else if (t.getCode() == KeyCode.ESCAPE) {
+        // cancelEdit();
+        // }
+        // }
+        // });
+        // }
+
+        // private String getString() {
+        // return getItem() == null ? "" : getItem().toString();
+        // }
+        // }
+
         canvas.getChildren().add(CircleGroup);
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static class Gates {
+
+        private final SimpleStringProperty name;
+        private final SimpleStringProperty department;
+
+        private Gates(String name, String department) {
+            this.name = new SimpleStringProperty(name);
+            this.department = new SimpleStringProperty(department);
+        }
+
+        public String getName() {
+            return name.get();
+        }
+
+        public void setName(String fName) {
+            name.set(fName);
+        }
+
+        public String getDepartment() {
+            return department.get();
+        }
+
+        public void setDepartment(String fName) {
+            department.set(fName);
+        }
     }
 
 }
