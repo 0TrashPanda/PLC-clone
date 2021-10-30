@@ -12,6 +12,8 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeCell;
 // import javafx.stage.StageStyle;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -19,26 +21,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import java.util.Arrays;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.layout.VBox;
 
 public class App extends Application {
 
-    Robot robot = new Robot();
-
     public static void main(String[] args) {
         launch(args);
     }
 
-    List<Gates> gates = Arrays.<Gates>asList(
-        new Gates("NOT", "BASIC"),
-        new Gates("OR", "EXOTIC"),
-        new Gates("AND", "BASIC"));
-    TreeItem<String> rootNode = new TreeItem<String>("GATES");
+    Robot robot = new Robot();
+    private static int cellCount = 0;
 
-    int move = 1;
-    int hory = 200;
+    List<Gates> gates = Arrays.<Gates>asList(new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"),
+            new Gates("AND", "BASIC"));
+    TreeItem<String> rootNode = new TreeItem<String>("GATES");
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -78,6 +77,40 @@ public class App extends Application {
         parent.getChildren().add(box);
         TreeView<String> treeView = new TreeView<String>(rootNode);
 
+        treeView.setCellFactory(tv -> new TreeCell<String>() {
+
+            {
+                System.out.println("Cells created: " + (++cellCount));
+
+                setOnDragDetected(e -> {
+                    if (!isEmpty()) {
+                        Dragboard db = startDragAndDrop(TransferMode.COPY);
+                        ClipboardContent cc = new ClipboardContent();
+                        cc.putString(getItem());
+                        db.setContent(cc);
+                        Label label = new Label(getItem());
+                        Rectangle rect = new Rectangle(100, 50, 100, 50);
+                        rect.setFill(Color.RED);
+                        Group dragImg = new Group();
+                        dragImg.getChildren().add(rect);
+                        dragImg.getChildren().add(label);
+                        new Scene(dragImg);
+                        db.setDragView(dragImg.snapshot(null, null));
+                    }
+                });
+            }
+
+            @Override
+            public void updateItem(String value, boolean empty) {
+                super.updateItem(value, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(getItem());
+                }
+            }
+        });
+
         DragResizerXY.makeResizable(treeView);
         parent.getChildren().add(treeView);
         parent.getChildren().add(canvas);
@@ -90,7 +123,6 @@ public class App extends Application {
         // stage.initStyle(StageStyle.TRANSPARENT);
 
         Circle circle = new Circle(100, 100, 100);
-        circle.getStyleClass().add("circle");
         canvas.getChildren().add(circle);
         circle.setFill(Color.LIMEGREEN);
 
@@ -112,13 +144,14 @@ public class App extends Application {
                 System.out.println("Dropped: " + db.getString());
 
                 Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
-                System.out.println(boundsInScreen.getMaxX());
-
-                System.out.println(hory);
                 Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
                         robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
                 CircleGroup.getChildren().add(circle2);
-                circle2.setFill(Color.PINK);
+                if (db.getString() == "AND") {
+                    circle2.setFill(Color.RED);
+                } else {
+                    circle2.setFill(Color.PINK);
+                }
                 event.setDropCompleted(true);
 
             } else {
@@ -130,7 +163,7 @@ public class App extends Application {
         canvas.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != canvas && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    event.acceptTransferModes(TransferMode.ANY);
                 }
 
                 event.consume();
