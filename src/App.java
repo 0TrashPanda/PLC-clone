@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import java.util.Arrays;
-import javafx.beans.property.SimpleStringProperty;
+import java.util.HashMap;
 import javafx.scene.layout.VBox;
 
 public class App extends Application {
@@ -138,20 +138,25 @@ public class App extends Application {
 
         Group CircleGroup = new Group();
 
+        HashMap<String, Color> colors = new HashMap<String, Color>();
+        colors.put("AND", Color.RED);
+        colors.put("OR", Color.YELLOW);
+        colors.put("NOT", Color.PURPLE);
+
         canvas.setOnDragDropped((DragEvent event) -> {
             Dragboard db = event.getDragboard();
             if (db.hasString()) {
                 System.out.println("Dropped: " + db.getString());
 
-                Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
-                Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
-                        robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
-                CircleGroup.getChildren().add(circle2);
-                if (db.getString() == "AND") {
-                    circle2.setFill(Color.RED);
-                } else {
-                    circle2.setFill(Color.PINK);
+                
+                if (colors.containsKey(db.getString())) {
+                    Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
+                    Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
+                            robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
+                    CircleGroup.getChildren().add(circle2);
+                    circle2.setFill(colors.get(db.getString()));
                 }
+
                 event.setDropCompleted(true);
 
             } else {
@@ -174,33 +179,6 @@ public class App extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static class Gates {
-
-        private final SimpleStringProperty name;
-        private final SimpleStringProperty department;
-
-        private Gates(String name, String department) {
-            this.name = new SimpleStringProperty(name);
-            this.department = new SimpleStringProperty(department);
-        }
-
-        public String getName() {
-            return name.get();
-        }
-
-        public void setName(String fName) {
-            name.set(fName);
-        }
-
-        public String getDepartment() {
-            return department.get();
-        }
-
-        public void setDepartment(String fName) {
-            department.set(fName);
-        }
     }
 
 }
