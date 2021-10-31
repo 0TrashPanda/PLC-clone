@@ -15,3 +15,8 @@
   -fx-control-inner-background-alt: derive(-fx-control-inner-background, -10%);
   -fx-accent: #26b581;
 }
+
+.menubar {
+  -fx-background-color:#b3b3b3;
+  background-color: #b325c0;
+}
