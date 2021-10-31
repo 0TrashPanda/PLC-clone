@@ -16,7 +16,21 @@
   -fx-accent: #26b581;
 }
 
-.menubar {
-  -fx-background-color:#b3b3b3;
-  background-color: #b325c0;
+
+.topbar {
+  -fx-background-color: #b3b3b3;
+  background-color: #b3b3b3;
+}
+
+.exitbutton {
+  -fx-background-color: #b3b3b3;
+  background-color: #b3b3b3;
+  -fx-background-radius: 0;
+  -fx-text-fill: #000000;
+}
+
+.exitbutton:hover {
+  -fx-background-color: #a84141;
+  background-color: #a84141;
+  -fx-text-fill: #fff;
 }

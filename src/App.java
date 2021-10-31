@@ -36,6 +36,9 @@ public class App extends Application {
         launch(args);
     }
 
+    double orgSceneX, orgSceneY;
+    double orgTranslateX, orgTranslateY;
+
     Robot robot = new Robot();
     private static int cellCount = 0;
 
@@ -152,6 +155,8 @@ public class App extends Application {
                     Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
                     Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
                             robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
+                    circle2.setOnMousePressed(pressMouse);
+                    circle2.setOnMouseDragged(dragMouse);
                     CircleGroup.getChildren().add(circle2);
                     circle2.setFill(colors.get(db.getString()));
                 }
@@ -174,13 +179,16 @@ public class App extends Application {
             }
         });
 
+
+
         canvas.getChildren().add(CircleGroup);
 
         Menu menu1 = new Menu("Menu 1");
         MenuBar menuBar = new MenuBar();
-        menuBar.getStyleClass().add("menubar");
+        menuBar.getStyleClass().add("topbar");
         menuBar.getMenus().add(menu1);
         Button exit = new Button();
+        exit.getStyleClass().add("exitbutton");
         exit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -191,6 +199,7 @@ public class App extends Application {
         exit.setText("X");
         exit.prefWidthProperty().set(50);
         HBox topbar = new HBox();
+        topbar.getStyleClass().add("topbar");
         topbar.getChildren().add(menuBar);
         topbar.getChildren().add(exit);
         topbar.prefWidthProperty().bind(parent.widthProperty());
@@ -207,5 +216,32 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+        EventHandler<MouseEvent> pressMouse = 
+        new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+            orgSceneX = t.getSceneX();
+            orgSceneY = t.getSceneY();
+            orgTranslateX = ((Circle)(t.getSource())).getTranslateX();
+            orgTranslateY = ((Circle)(t.getSource())).getTranslateY();
+        }
+    };
+
+    EventHandler<MouseEvent> dragMouse = 
+        new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+            double offsetX = t.getSceneX() - orgSceneX;
+            double offsetY = t.getSceneY() - orgSceneY;
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
+            
+            ((Circle)(t.getSource())).setTranslateX(newTranslateX);
+            ((Circle)(t.getSource())).setTranslateY(newTranslateY);
+        }
+    };
 
 }
