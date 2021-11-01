@@ -26,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import javafx.scene.layout.VBox;
@@ -139,12 +141,21 @@ public class App extends Application {
             db.setContent(content);
         });
 
-        Group CircleGroup = new Group();
 
         HashMap<String, Color> colors = new HashMap<String, Color>();
         colors.put("AND", Color.RED);
         colors.put("OR", Color.YELLOW);
         colors.put("NOT", Color.PURPLE);
+
+        HashMap<String, Integer> inputs = new HashMap<String, Integer>();
+        inputs.put("AND", 2);
+        inputs.put("OR", 2);
+        inputs.put("NOT", 1);
+
+        HashMap<String, Integer> outputs = new HashMap<String, Integer>();
+        outputs.put("AND", 1);
+        outputs.put("OR", 1);
+        outputs.put("NOT", 1);
 
         canvas.setOnDragDropped((DragEvent event) -> {
             Dragboard db = event.getDragboard();
@@ -153,12 +164,34 @@ public class App extends Application {
 
                 if (colors.containsKey(db.getString())) {
                     Bounds boundsInScreen = canvas.localToScreen(canvas.getBoundsInLocal());
-                    Circle circle2 = new Circle(robot.getMousePosition().getX() - boundsInScreen.getMinX(),
-                            robot.getMousePosition().getY() - boundsInScreen.getMinY(), 10);
-                    circle2.setOnMousePressed(pressMouse);
-                    circle2.setOnMouseDragged(dragMouse);
-                    CircleGroup.getChildren().add(circle2);
-                    circle2.setFill(colors.get(db.getString()));
+                    Group gateGroup = new Group();
+                    gateGroup.setTranslateX(robot.getMousePosition().getX() - boundsInScreen.getMinX());
+                    gateGroup.setTranslateY(robot.getMousePosition().getY() - boundsInScreen.getMinY());
+                    gateGroup.setOnMousePressed(pressMouse);
+                    gateGroup.setOnMouseDragged(dragMouse);
+                    int rectheight;
+                    if (inputs.get(db.getString())>outputs.get(db.getString())) {
+                        rectheight=inputs.get(db.getString())*25;
+                    } else {
+                        rectheight=outputs.get(db.getString())*25;
+                    }
+                    Rectangle temprect = new Rectangle(0, -12,100 , rectheight);
+                    temprect.setFill(colors.get(db.getString()));
+                    gateGroup.getChildren().add(temprect);
+                    Text gateText = new Text();
+                    gateText.setText(db.getString());
+                    gateText.setX(25);
+                    gateText.setY(5);
+                    gateGroup.getChildren().add(gateText);
+                    for (int i = 0; i < inputs.get(db.getString()); i++) {
+                        gateGroup.getChildren().add(new Circle(0, 25 * i, 10));
+                    }
+                    for (int i = 0; i < outputs.get(db.getString()); i++) {
+                        gateGroup.getChildren().add(new Circle(100, 25 * i, 10));
+                    }
+                    canvas.getChildren().add(gateGroup);
+
+
                 }
 
                 event.setDropCompleted(true);
@@ -178,10 +211,6 @@ public class App extends Application {
                 event.consume();
             }
         });
-
-
-
-        canvas.getChildren().add(CircleGroup);
 
         Menu menu1 = new Menu("Menu 1");
         MenuBar menuBar = new MenuBar();
@@ -217,20 +246,18 @@ public class App extends Application {
         stage.show();
     }
 
-        EventHandler<MouseEvent> pressMouse = 
-        new EventHandler<MouseEvent>() {
+    EventHandler<MouseEvent> pressMouse = new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent t) {
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle)(t.getSource())).getTranslateX();
-            orgTranslateY = ((Circle)(t.getSource())).getTranslateY();
+            orgTranslateX = ((Circle) (t.getSource())).getTranslateX();
+            orgTranslateY = ((Circle) (t.getSource())).getTranslateY();
         }
     };
 
-    EventHandler<MouseEvent> dragMouse = 
-        new EventHandler<MouseEvent>() {
+    EventHandler<MouseEvent> dragMouse = new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent t) {
@@ -238,9 +265,9 @@ public class App extends Application {
             double offsetY = t.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            
-            ((Circle)(t.getSource())).setTranslateX(newTranslateX);
-            ((Circle)(t.getSource())).setTranslateY(newTranslateY);
+
+            ((Circle) (t.getSource())).setTranslateX(newTranslateX);
+            ((Circle) (t.getSource())).setTranslateY(newTranslateY);
         }
     };
 
