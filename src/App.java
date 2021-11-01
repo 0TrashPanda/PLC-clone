@@ -252,8 +252,8 @@ public class App extends Application {
         public void handle(MouseEvent t) {
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle) (t.getSource())).getTranslateX();
-            orgTranslateY = ((Circle) (t.getSource())).getTranslateY();
+            orgTranslateX = ((Group) (t.getSource())).getTranslateX();
+            orgTranslateY = ((Group) (t.getSource())).getTranslateY();
         }
     };
 
@@ -266,8 +266,8 @@ public class App extends Application {
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
 
-            ((Circle) (t.getSource())).setTranslateX(newTranslateX);
-            ((Circle) (t.getSource())).setTranslateY(newTranslateY);
+            ((Group) (t.getSource())).setTranslateX(newTranslateX);
+            ((Group) (t.getSource())).setTranslateY(newTranslateY);
         }
     };
 
