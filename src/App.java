@@ -27,7 +27,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import javafx.scene.layout.VBox;
@@ -43,6 +42,8 @@ public class App extends Application {
 
     Robot robot = new Robot();
     private static int cellCount = 0;
+
+    public static int inputcount = 0;
 
     List<Gates> gates = Arrays.<Gates>asList(new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"),
             new Gates("AND", "BASIC"));
@@ -141,7 +142,6 @@ public class App extends Application {
             db.setContent(content);
         });
 
-
         HashMap<String, Color> colors = new HashMap<String, Color>();
         colors.put("AND", Color.RED);
         colors.put("OR", Color.YELLOW);
@@ -167,15 +167,15 @@ public class App extends Application {
                     Group gateGroup = new Group();
                     gateGroup.setTranslateX(robot.getMousePosition().getX() - boundsInScreen.getMinX());
                     gateGroup.setTranslateY(robot.getMousePosition().getY() - boundsInScreen.getMinY());
-                    gateGroup.setOnMousePressed(pressMouse);
                     gateGroup.setOnMouseDragged(dragMouse);
+                    gateGroup.setOnMousePressed(pressMouse);
                     int rectheight;
-                    if (inputs.get(db.getString())>outputs.get(db.getString())) {
-                        rectheight=inputs.get(db.getString())*25;
+                    if (inputs.get(db.getString()) > outputs.get(db.getString())) {
+                        rectheight = inputs.get(db.getString()) * 25;
                     } else {
-                        rectheight=outputs.get(db.getString())*25;
+                        rectheight = outputs.get(db.getString()) * 25;
                     }
-                    Rectangle temprect = new Rectangle(0, -12,100 , rectheight);
+                    Rectangle temprect = new Rectangle(0, -12, 100, rectheight);
                     temprect.setFill(colors.get(db.getString()));
                     gateGroup.getChildren().add(temprect);
                     Text gateText = new Text();
@@ -190,7 +190,6 @@ public class App extends Application {
                         gateGroup.getChildren().add(new Circle(100, 25 * i, 10));
                     }
                     canvas.getChildren().add(gateGroup);
-
 
                 }
 
@@ -225,6 +224,41 @@ public class App extends Application {
                 stage.close();
             }
         });
+
+        Group menuInputs = new Group();
+        Button addInput = new Button();
+        addInput.setText("+");
+        Button removeInput = new Button();
+        removeInput.setText("-");
+        removeInput.setTranslateY(30);
+        for (int i = 0; i < inputcount; i++) {
+            Group inputGroup = new Group();
+            Circle inputCircles = new Circle();
+            Button inputButton = new Button();
+            inputGroup.getChildren().addAll(inputCircles, inputButton);
+            menuInputs.getChildren().add(inputGroup);
+        }
+        menuInputs.getChildren().addAll(addInput, removeInput);
+        menuInputs.setTranslateY(200);
+        canvas.getChildren().add(menuInputs);
+        addInput.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if (inputcount < 16) {
+                    inputcount++;
+                    System.out.println(inputcount);
+                    Group inputGroup = new Group();
+                    inputGroup.setTranslateY((inputcount + 1) * 30);
+                    Circle inputCircles = new Circle(10, 10, 10);
+                    inputCircles.setTranslateX(35);
+                    Button inputButton = new Button();
+                    inputButton.setText(String.format("%02d", inputcount));
+                    inputGroup.getChildren().addAll(inputCircles, inputButton);
+                    menuInputs.getChildren().add(inputGroup);
+                }
+            }
+        });
+
         exit.setText("X");
         exit.prefWidthProperty().set(50);
         HBox topbar = new HBox();
@@ -270,5 +304,4 @@ public class App extends Application {
             ((Group) (t.getSource())).setTranslateY(newTranslateY);
         }
     };
-
 }
