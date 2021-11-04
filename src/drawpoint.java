@@ -1,9 +1,8 @@
 import java.util.HashMap;
-
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -11,7 +10,7 @@ import javafx.scene.text.Text;
 
 public class drawpoint {
 
-    public static Group drawPoint(double x, double y, Pane canvas) {
+    public static Group drawPoint(double x, double y) {
 
         HashMap<String, Color> colors = new HashMap<String, Color>();
         colors.put("AND", Color.RED);
@@ -28,11 +27,7 @@ public class drawpoint {
         outputs.put("OR", 1);
         outputs.put("NOT", 1);
 
-        Group gateGroup = new Group();
-        gateGroup.setTranslateX(x);
-        gateGroup.setTranslateY(y);
-        gateGroup.setOnMouseDragged(dragMouse);
-        gateGroup.setOnMousePressed(pressMouse);
+        
         int rectheight;
         if (inputs.get("AND") > outputs.get("AND")) {
             rectheight = inputs.get("AND") * 25;
@@ -41,19 +36,25 @@ public class drawpoint {
         }
         Rectangle temprect = new Rectangle(0, -12, 100, rectheight);
         temprect.setFill(colors.get("AND"));
-        gateGroup.getChildren().add(temprect);
         Text gateText = new Text();
         gateText.setText("AND");
         gateText.setX(25);
         gateText.setY(5);
-        gateGroup.getChildren().add(gateText);
+        Group gateGroupIn = new Group();
+        Group gateGroupOut = new Group();
         for (int i = 0; i < inputs.get("AND"); i++) {
-            gateGroup.getChildren().add(new Circle(0, 25 * i, 10));
+            gateGroupIn.getChildren().add(new Circle(0, 25 * i, 10));
         }
         for (int i = 0; i < outputs.get("AND"); i++) {
-            gateGroup.getChildren().add(new Circle(100, 25 * i, 10));
+            gateGroupOut.getChildren().add(new Circle(100, 25 * i, 10));
         }
-        canvas.getChildren().add(gateGroup);
+        
+        Group gateGroup = new Group(temprect,gateText,gateGroupIn,gateGroupOut);
+        gateGroup.setStyle("-fx-background-color:#ebaec6");
+        gateGroup.setTranslateX(x);
+        gateGroup.setTranslateY(y);
+        gateGroup.setOnMouseDragged(dragMouse);
+        gateGroup.setOnMousePressed(pressMouse);
         return gateGroup;
     }
 
@@ -66,6 +67,8 @@ public class drawpoint {
 
         @Override
         public void handle(MouseEvent t) {
+            placeItems.mState = mouseStates.select;
+            App.scene.setCursor(Cursor.DEFAULT);          
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
             orgTranslateX = ((Group) (t.getSource())).getTranslateX();

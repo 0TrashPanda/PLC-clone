@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
+
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -48,6 +50,8 @@ public class treeCreator {
 
                 setOnDragDetected(e -> {
                     if (!isEmpty()) {
+                        placeItems.mState = mouseStates.placeGate;
+                        App.scene.setCursor(Cursor.CROSSHAIR);           
                         Dragboard db = startDragAndDrop(TransferMode.COPY);
                         ClipboardContent cc = new ClipboardContent();
                         cc.putString(getItem());

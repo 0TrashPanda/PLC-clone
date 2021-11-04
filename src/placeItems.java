@@ -12,10 +12,10 @@ import javafx.event.EventHandler;
 public class placeItems {
 
     static ArrayList<Group> gateList = new ArrayList<>();
-
+    public static mouseStates mState = mouseStates.select;
+    
+    
     public static void placeItem(Pane canvas) {
-
-        // mouseStates mState = mouseStates.select;
 
         canvas.setOnDragDropped((DragEvent event) -> {
             Dragboard db = event.getDragboard();
@@ -41,17 +41,19 @@ public class placeItems {
             double x = e.getX();
             double y = e.getY();
 
-            // if (mState == mouseStates.select) {
-            // return;
-            // }
+            if (mState == mouseStates.select) {
+            return;
+            }
 
             for (Group c : gateList) {
+                
                 if (c.contains(x, y))
                     return;
             }
 
+
             if (e.getButton() == MouseButton.PRIMARY) {
-                Group c = drawpoint.drawPoint(x, y, canvas);
+                Group c = drawpoint.drawPoint(x, y);
                 gateList.add(c);
                 canvas.getChildren().add(c);
 
