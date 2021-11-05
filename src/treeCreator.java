@@ -50,6 +50,8 @@ public class treeCreator {
 
                 setOnDragDetected(e -> {
                     if (!isEmpty()) {
+                        
+                        App.gate = getItem();
                         placeItems.mState = mouseStates.placeGate;
                         App.scene.setCursor(Cursor.CROSSHAIR);           
                         Dragboard db = startDragAndDrop(TransferMode.COPY);
@@ -64,6 +66,14 @@ public class treeCreator {
                         dragImg.getChildren().add(label);
                         new Scene(dragImg);
                         db.setDragView(dragImg.snapshot(null, null));
+                    }
+                });
+
+                setOnMouseClicked(e -> {
+                    if (!isEmpty()) {
+                        App.gate = getItem();
+                        placeItems.mState = mouseStates.placeGate;
+                        App.scene.setCursor(Cursor.CROSSHAIR);           
                     }
                 });
             }

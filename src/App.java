@@ -14,6 +14,8 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static String gate = "AND";
     
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);

@@ -29,23 +29,23 @@ public class drawpoint {
 
         
         int rectheight;
-        if (inputs.get("AND") > outputs.get("AND")) {
-            rectheight = inputs.get("AND") * 25;
+        if (inputs.get(App.gate) > outputs.get(App.gate)) {
+            rectheight = inputs.get(App.gate) * 25;
         } else {
-            rectheight = outputs.get("AND") * 25;
+            rectheight = outputs.get(App.gate) * 25;
         }
         Rectangle temprect = new Rectangle(0, -12, 100, rectheight);
-        temprect.setFill(colors.get("AND"));
+        temprect.setFill(colors.get(App.gate));
         Text gateText = new Text();
-        gateText.setText("AND");
+        gateText.setText(App.gate);
         gateText.setX(25);
         gateText.setY(5);
         Group gateGroupIn = new Group();
         Group gateGroupOut = new Group();
-        for (int i = 0; i < inputs.get("AND"); i++) {
+        for (int i = 0; i < inputs.get(App.gate); i++) {
             gateGroupIn.getChildren().add(new Circle(0, 25 * i, 10));
         }
-        for (int i = 0; i < outputs.get("AND"); i++) {
+        for (int i = 0; i < outputs.get(App.gate); i++) {
             gateGroupOut.getChildren().add(new Circle(100, 25 * i, 10));
         }
         
