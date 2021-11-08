@@ -9,6 +9,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
 
 public class treeCreator {
 
@@ -46,26 +47,36 @@ public class treeCreator {
 
                 setOnDragDetected(e -> {
                     if (!isEmpty()) {
-                        App.gate = getItem();
-                        placeItems.mState = mouseStates.placeGate;
-                        App.scene.setCursor(Cursor.CROSSHAIR); 
+                        if (App.GateList.contains(getItem())) {
+                            App.gate = getItem();
+                            placeItems.mState = mouseStates.placeGate;
+                            App.scene.setCursor(Cursor.CROSSHAIR);
 
-                        Dragboard db = startDragAndDrop(TransferMode.COPY);
-                        ClipboardContent cc = new ClipboardContent();
-                        cc.putString(getItem());
-                        db.setContent(cc);
+                            Dragboard db = startDragAndDrop(TransferMode.COPY);
+                            ClipboardContent cc = new ClipboardContent();
+                            cc.putString(getItem());
+                            db.setContent(cc);
 
-                        Group dragImg = drawpoint.drawPoint(0, 0);
-                        new Scene(dragImg);
-                        db.setDragView(dragImg.snapshot(null, null));
+                            Group dragImg = drawpoint.drawPoint(0, 0);
+                            new Scene(dragImg).setFill(Color.TRANSPARENT);
+                            db.setDragView(dragImg.snapshot(null, null));
+                        } else {
+                            placeItems.mState = mouseStates.select;
+                            App.scene.setCursor(Cursor.DEFAULT);
+                        }
                     }
                 });
 
                 setOnMouseClicked(e -> {
                     if (!isEmpty()) {
-                        App.gate = getItem();
-                        placeItems.mState = mouseStates.placeGate;
-                        App.scene.setCursor(Cursor.CROSSHAIR);           
+                        if (App.GateList.contains(getItem())) {
+                            App.gate = getItem();
+                            placeItems.mState = mouseStates.placeGate;
+                            App.scene.setCursor(Cursor.CROSSHAIR);
+                        } else {
+                            placeItems.mState = mouseStates.select;
+                            App.scene.setCursor(Cursor.DEFAULT);
+                        }
                     }
                 });
             }

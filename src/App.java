@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -15,16 +17,18 @@ public class App extends Application {
         launch(args);
     }
 
+    public static ArrayList<String> GateList = new ArrayList<String>();
+    
     public static String gate = "AND";
     
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
     public static Pane canvas = new Pane();
-
-
+    
+    
     @Override
     public void start(Stage stage) throws Exception {
-
+        
         Image icon = new Image("Icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("WTF is this man doing");
@@ -34,7 +38,11 @@ public class App extends Application {
         HBox parent = new HBox();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.getStyleClass().add("canvas");
-
+        
+        GateList.add("AND");
+        GateList.add("NOT");
+        GateList.add("OR");
+        
         parent.getChildren().addAll(treeCreator.makeTree(), canvas);
 
         placeItems.placeItem(canvas);
