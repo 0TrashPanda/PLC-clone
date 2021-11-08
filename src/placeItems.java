@@ -36,7 +36,6 @@ public class placeItems {
                 if (event.getGestureSource() != canvas && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.ANY);
                 }
-
                 event.consume();
             }
         });
@@ -44,21 +43,6 @@ public class placeItems {
         canvas.setOnMouseClicked(e -> {
             double x = e.getX();
             double y = e.getY();
-
-            // for (Rectangle temprect : rectList) {
-            // temprect.setFill(Color.PINK);
-            // System.out.println("knaagdier");
-            // double newPosX = temprect.getParent().getBoundsInParent().getMinX()+x;
-            // double newPosY = temprect.getParent().getBoundsInParent().getMinY()+y;
-            // System.out.println("xxx"+newPosX);
-            // System.out.println("yyy"+newPosY);
-
-            // if (temprect.contains(newPosX,newPosY)) {
-            // canvas.getChildren().add(new Circle(x, y, 100));
-            // System.out.println("knaa");
-            // return;
-            // }
-            // }
 
             if (mState == mouseStates.select) {
                 return;
@@ -70,11 +54,6 @@ public class placeItems {
                 canvas.getChildren().add(c);
 
             }
-            // else if (e.getButton() == MouseButton.SECONDARY) {
-            // removePoint(x, y);
-
-            // }
-
         });
     }
 }

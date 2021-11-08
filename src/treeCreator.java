@@ -1,18 +1,14 @@
 import java.util.Arrays;
 import java.util.List;
-
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class treeCreator {
 
@@ -52,17 +48,14 @@ public class treeCreator {
                     if (!isEmpty()) {
                         App.gate = getItem();
                         placeItems.mState = mouseStates.placeGate;
-                        App.scene.setCursor(Cursor.CROSSHAIR);           
+                        App.scene.setCursor(Cursor.CROSSHAIR); 
+
                         Dragboard db = startDragAndDrop(TransferMode.COPY);
                         ClipboardContent cc = new ClipboardContent();
                         cc.putString(getItem());
                         db.setContent(cc);
-                        Label label = new Label(getItem());
-                        Rectangle rect = new Rectangle(100, 50, 100, 50);
-                        rect.setFill(Color.RED);
-                        Group dragImg = new Group();
-                        dragImg.getChildren().add(rect);
-                        dragImg.getChildren().add(label);
+
+                        Group dragImg = drawpoint.drawPoint(0, 0);
                         new Scene(dragImg);
                         db.setDragView(dragImg.snapshot(null, null));
                     }
