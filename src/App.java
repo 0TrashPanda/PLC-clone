@@ -19,6 +19,8 @@ public class App extends Application {
     
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
+    public static Pane canvas = new Pane();
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,9 +31,7 @@ public class App extends Application {
         stage.setMaximized(true);
         stage.setMinHeight(250);
         stage.setMinWidth(500);
-
         HBox parent = new HBox();
-        Pane canvas = new Pane();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.getStyleClass().add("canvas");
 

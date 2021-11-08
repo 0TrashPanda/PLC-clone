@@ -50,7 +50,6 @@ public class treeCreator {
 
                 setOnDragDetected(e -> {
                     if (!isEmpty()) {
-                        
                         App.gate = getItem();
                         placeItems.mState = mouseStates.placeGate;
                         App.scene.setCursor(Cursor.CROSSHAIR);           
