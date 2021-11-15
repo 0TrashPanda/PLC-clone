@@ -15,8 +15,8 @@ public class treeCreator {
 
     private static int cellCount = 0;
 
-    static List<Gates> gates = Arrays.<Gates>asList(new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"),
-            new Gates("AND", "BASIC"));
+    static List<Gates> gates = Arrays.<Gates>asList(new Gates("INPUT", "IO"), new Gates("OUTPUT", "IO"),
+            new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"), new Gates("AND", "BASIC"));
     static TreeItem<String> rootNode = new TreeItem<String>("GATES");
 
     public static TreeView<String> makeTree() {

@@ -22,16 +22,22 @@ public class drawpoint {
         colors.put("AND", Color.RED);
         colors.put("OR", Color.YELLOW);
         colors.put("NOT", Color.PURPLE);
+        colors.put("INPUT", Color.PINK);
+        colors.put("OUTPUT", Color.LIGHTBLUE);
 
         HashMap<String, Integer> inputs = new HashMap<String, Integer>();
         inputs.put("AND", 2);
         inputs.put("OR", 2);
         inputs.put("NOT", 1);
+        inputs.put("INPUT", 0);
+        inputs.put("OUTPUT", 1);
 
         HashMap<String, Integer> outputs = new HashMap<String, Integer>();
         outputs.put("AND", 1);
         outputs.put("OR", 1);
         outputs.put("NOT", 1);
+        outputs.put("INPUT", 1);
+        outputs.put("OUTPUT", 0);
 
         int rectheight;
         if (inputs.get(App.gate) > outputs.get(App.gate)) {
@@ -62,18 +68,17 @@ public class drawpoint {
 
         for (int i = 0; i < inputs.get(App.gate); i++) {
             Circle circle = new Circle(0, 0, 10);
-            circle.setTranslateY(25*i);
+            circle.setTranslateY(25 * i);
             gateGroupIn.getChildren().add(circle);
             inputList.add(circle);
             circle.setOnMousePressed(circlepress);
             circle.setOnMouseDragged(circledrag);
             circle.setOnMouseReleased(circleEnd);
 
-
         }
         for (int i = 0; i < outputs.get(App.gate); i++) {
             Circle circle = new Circle(0, 0, 10);
-            circle.setTranslateY(25*i);
+            circle.setTranslateY(25 * i);
             gateGroupOut.getChildren().add(circle);
             outputList.add(circle);
             circle.setOnMousePressed(circlepress);
@@ -98,7 +103,7 @@ public class drawpoint {
 
         @Override
         public void handle(MouseEvent t) {
-            placeItems.mState = mouseStates.select;
+            placeItems.mState = mouseStates.moveGate;
             App.scene.setCursor(Cursor.DEFAULT);
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
@@ -121,7 +126,7 @@ public class drawpoint {
         }
     };
 
-    public static Line connectLine = new Line(0,0,0,0);
+    public static Line connectLine = new Line(0, 0, 0, 0);
 
     static EventHandler<MouseEvent> circlepress = new EventHandler<MouseEvent>() {
 
@@ -131,8 +136,11 @@ public class drawpoint {
             App.scene.setCursor(Cursor.DEFAULT);
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getTranslateX()+((Circle) (t.getSource())).getParent().getTranslateX();
-            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getTranslateY()+((Circle) (t.getSource())).getParent().getTranslateY()+((Circle) (t.getSource())).getTranslateY();
+            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getTranslateX()
+                    + ((Circle) (t.getSource())).getParent().getTranslateX();
+            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
+                    + ((Circle) (t.getSource())).getParent().getTranslateY()
+                    + ((Circle) (t.getSource())).getTranslateY();
             App.canvas.getChildren().add(connectLine);
             connectLine.setStartX(orgTranslateX);
             connectLine.setStartY(orgTranslateY);

@@ -1,3 +1,3 @@
 public enum mouseStates {
-    placeGate, select
+    placeGate, select, moveGate
 }

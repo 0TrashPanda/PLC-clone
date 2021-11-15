@@ -44,7 +44,7 @@ public class placeItems {
             double x = e.getX();
             double y = e.getY();
 
-            if (mState == mouseStates.select) {
+            if (mState != mouseStates.placeGate) {
                 return;
             }
 
