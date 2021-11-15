@@ -1,17 +1,14 @@
 import java.util.ArrayList;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
 
 public class App extends Application {
 
@@ -39,9 +36,9 @@ public class App extends Application {
         HBox parent = new HBox();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.getStyleClass().add("canvas");
-        canvas.setOnMousePressed(selectBoxPress);
-        canvas.setOnMouseDragged(selectBoxDrag);
-        canvas.setOnMouseReleased(selectBoxEnd);
+        canvas.setOnMousePressed(eventHandlers.selectBoxPress);
+        canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
+        canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
 
         GateList.add("AND");
         GateList.add("NOT");
@@ -69,51 +66,5 @@ public class App extends Application {
         stage.show();
     }
 
-    static double orgSceneX;
-    static double orgSceneY;
-    static double orgTranslateX;
-    static double orgTranslateY;
 
-    static Line connectLine = new Line(0, 0, 0, 0);
-
-    static EventHandler<MouseEvent> selectBoxPress = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                App.scene.setCursor(Cursor.DEFAULT);
-                double offsetX = t.getX();
-                double offsetY = t.getY();
-                App.canvas.getChildren().add(connectLine);
-                connectLine.setStartX(offsetX);
-                connectLine.setStartY(offsetY);
-                connectLine.setEndX(offsetX);
-                connectLine.setEndY(offsetY);
-            }
-
-        }
-    };
-
-    static EventHandler<MouseEvent> selectBoxDrag = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                double offsetX = t.getX();
-                double offsetY = t.getY();
-                connectLine.setEndX(offsetX);
-                connectLine.setEndY(offsetY);
-            }
-        }
-    };
-    static EventHandler<MouseEvent> selectBoxEnd = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                Pane TempPane = (Pane) connectLine.getParent();
-                TempPane.getChildren().remove(connectLine);
-            }
-        }
-    };
 }

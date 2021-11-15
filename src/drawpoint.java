@@ -1,13 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -55,8 +50,8 @@ public class drawpoint {
         gateText.setY(5);
 
         Group gateCore = new Group();
-        gateCore.setOnMouseDragged(dragMouse);
-        gateCore.setOnMousePressed(pressMouse);
+        gateCore.setOnMouseDragged(eventHandlers.dragMouse);
+        gateCore.setOnMousePressed(eventHandlers.pressMouse);
 
         gateCore.getChildren().addAll(temprect, gateText);
 
@@ -71,9 +66,9 @@ public class drawpoint {
             circle.setTranslateY(25 * i);
             gateGroupIn.getChildren().add(circle);
             inputList.add(circle);
-            circle.setOnMousePressed(circlepress);
-            circle.setOnMouseDragged(circledrag);
-            circle.setOnMouseReleased(circleEnd);
+            circle.setOnMousePressed(eventHandlers.circlepress);
+            circle.setOnMouseDragged(eventHandlers.circledrag);
+            circle.setOnMouseReleased(eventHandlers.circleEnd);
 
         }
         for (int i = 0; i < outputs.get(App.gate); i++) {
@@ -81,9 +76,9 @@ public class drawpoint {
             circle.setTranslateY(25 * i);
             gateGroupOut.getChildren().add(circle);
             outputList.add(circle);
-            circle.setOnMousePressed(circlepress);
-            circle.setOnMouseDragged(circledrag);
-            circle.setOnMouseReleased(circleEnd);
+            circle.setOnMousePressed(eventHandlers.circlepress);
+            circle.setOnMouseDragged(eventHandlers.circledrag);
+            circle.setOnMouseReleased(eventHandlers.circleEnd);
 
         }
 
@@ -93,82 +88,4 @@ public class drawpoint {
         gateGroup.setTranslateY(y);
         return gateGroup;
     }
-
-    static double orgSceneX;
-    static double orgSceneY;
-    static double orgTranslateX;
-    static double orgTranslateY;
-
-    static EventHandler<MouseEvent> pressMouse = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            placeItems.mState = mouseStates.moveGate;
-            App.scene.setCursor(Cursor.DEFAULT);
-            orgSceneX = t.getSceneX();
-            orgSceneY = t.getSceneY();
-            orgTranslateX = ((Group) (t.getSource())).getParent().getTranslateX();
-            orgTranslateY = ((Group) (t.getSource())).getParent().getTranslateY();
-        }
-    };
-
-    static EventHandler<MouseEvent> dragMouse = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            double offsetX = t.getSceneX() - orgSceneX;
-            double offsetY = t.getSceneY() - orgSceneY;
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
-
-            ((Group) (t.getSource())).getParent().setTranslateX(newTranslateX);
-            ((Group) (t.getSource())).getParent().setTranslateY(newTranslateY);
-        }
-    };
-
-    public static Line connectLine = new Line(0, 0, 0, 0);
-
-    static EventHandler<MouseEvent> circlepress = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            placeItems.mState = mouseStates.select;
-            App.scene.setCursor(Cursor.DEFAULT);
-            orgSceneX = t.getSceneX();
-            orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getTranslateX()
-                    + ((Circle) (t.getSource())).getParent().getTranslateX();
-            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
-                    + ((Circle) (t.getSource())).getParent().getTranslateY()
-                    + ((Circle) (t.getSource())).getTranslateY();
-            App.canvas.getChildren().add(connectLine);
-            connectLine.setStartX(orgTranslateX);
-            connectLine.setStartY(orgTranslateY);
-            connectLine.setEndX(orgTranslateX);
-            connectLine.setEndY(orgTranslateY);
-
-        }
-    };
-
-    static EventHandler<MouseEvent> circledrag = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            double offsetX = t.getSceneX() - orgSceneX;
-            double offsetY = t.getSceneY() - orgSceneY;
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
-            connectLine.setEndX(newTranslateX);
-            connectLine.setEndY(newTranslateY);
-        }
-    };
-    static EventHandler<MouseEvent> circleEnd = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            Pane ee = (Pane) connectLine.getParent();
-            ee.getChildren().remove(connectLine);
-        }
-    };
-
 }
