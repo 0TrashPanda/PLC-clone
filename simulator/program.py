@@ -1,3 +1,4 @@
+# I/O van de raspberry
 I0=0
 I1=0
 
@@ -12,6 +13,7 @@ class gate:
 AND_01 = gate("AND_01", "logicGates.AND", ["I0", "I1"], [0, 0], [0])
 AND_02 = gate("AND_02", "logicGates.AND", ["AND_01.inputsValue[0]", "AND_01.inputsValue[1]"], [0, 0],  [0])
 
+# list of all gates
 gates = [AND_01, AND_02]
 
 def updateGates():
