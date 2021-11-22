@@ -1,5 +1,5 @@
 import program
-import logicGates
+import logicGates # it says not used but it is, python just doesn't know
 
 
 def main():
@@ -19,16 +19,11 @@ def main():
         if usrinput.startswith("/"):
             usrinput = usrinput[1:]
             
-            if usrinput.startswith("exec "):
+            if usrinput.startswith("exec "): # e.g. /exec program.I0=1
                 exec(usrinput[5:])
                 
-            elif usrinput.startswith("eval "):
+            elif usrinput.startswith("eval "): # e.g. /eval print(program.I0)
                 eval(usrinput[5:])
-                
-            elif usrinput == "update":
-                print("starting update")
-                program.updateGates()
-                print("done")
 
 
 if __name__ == "__main__":  # test is program is imported or the main
