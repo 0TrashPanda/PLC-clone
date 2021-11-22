@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Circle;
 
 public class eventHandlers {
@@ -13,7 +14,8 @@ public class eventHandlers {
     static double orgTranslateY;
 
     static Line connectLine = new Line(0, 0, 0, 0);
-
+    static Rectangle drawBox = new Rectangle();
+    
     static EventHandler<MouseEvent> selectBoxPress = new EventHandler<MouseEvent>() {
 
         @Override
