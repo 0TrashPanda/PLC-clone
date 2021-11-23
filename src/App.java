@@ -36,9 +36,9 @@ public class App extends Application {
         HBox parent = new HBox();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.getStyleClass().add("canvas");
-        canvas.setOnMousePressed(eventHandlers.selectBoxPress);
-        canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
-        canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
+        // canvas.setOnMousePressed(eventHandlers.selectBoxPress);
+        // canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
+        // canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
 
         GateList.add("AND");
         GateList.add("NOT");

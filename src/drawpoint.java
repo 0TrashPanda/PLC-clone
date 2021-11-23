@@ -34,6 +34,15 @@ public class drawpoint {
         outputs.put("INPUT", 1);
         outputs.put("OUTPUT", 0);
 
+        HashMap<String, Integer> count = new HashMap<String, Integer>();
+        count.put("AND", 0);
+        count.put("OR", 0);
+        count.put("NOT", 0);
+        count.put("INPUT", 0);
+        count.put("OUTPUT", 0);
+        
+        // count.get(App.gate).;
+
         int rectheight;
         if (inputs.get(App.gate) > outputs.get(App.gate)) {
             rectheight = inputs.get(App.gate) * 25;
