@@ -52,7 +52,7 @@ public class App extends Application {
 
         placeItems.placeItem(canvas);
 
-        GateHashmaps.genHashmap(); // generate the hashmaps
+        // GateHashmaps.genHashmap(); // generate the hashmaps
 
         vBoxAll.getChildren().add(menuBar.makeMenuBar(parent));
         vBoxAll.getChildren().add(parent);
