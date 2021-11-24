@@ -36,9 +36,11 @@ public class App extends Application {
         HBox parent = new HBox();
         canvas.prefWidthProperty().bind(parent.widthProperty());
         canvas.getStyleClass().add("canvas");
-        // canvas.setOnMousePressed(eventHandlers.selectBoxPress);
-        // canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
-        // canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
+
+        // fixme: broken code lies ahead, approach with caution
+        //// canvas.setOnMousePressed(eventHandlers.selectBoxPress);
+        //// canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
+        //// canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
 
         GateList.add("AND");
         GateList.add("NOT");
@@ -48,6 +50,8 @@ public class App extends Application {
         parent.getChildren().addAll(treeCreator.makeTree(), canvas);
 
         placeItems.placeItem(canvas);
+
+        GateHashmaps.genHashmap(); // generate the hashmaps
 
         vBoxAll.getChildren().add(menuBar.makeMenuBar(parent));
         vBoxAll.getChildren().add(parent);
@@ -65,6 +69,4 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
