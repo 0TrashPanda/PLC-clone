@@ -16,9 +16,9 @@ public class App extends Application {
         launch(args);
     }
 
-    public static ArrayList<String> GateList = new ArrayList<String>();
+    public static ArrayList<String> GateList = new ArrayList<String>(); // todo: automate this shit (makes list of all gates)
 
-    public static String gate = "AND";
+    public static String gate = "AND"; // *creates var of selected gates
 
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
@@ -34,11 +34,14 @@ public class App extends Application {
         stage.setMinHeight(250);
         stage.setMinWidth(500);
         HBox parent = new HBox();
-        canvas.prefWidthProperty().bind(parent.widthProperty());
-        canvas.getStyleClass().add("canvas");
-        canvas.setOnMousePressed(eventHandlers.selectBoxPress);
-        canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
-        canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
+        canvas.prefWidthProperty().bind(parent.widthProperty()); // &just like with = 100% (set with to parent with)
+        canvas.getStyleClass().add("canvas"); // css bulshit (makes class 'canvas')
+        
+        // fixme: broken code lies ahead, approach with caution
+        // //canvas.setOnMousePressed(eventHandlers.selectBoxPress);
+        // //canvas.setOnMouseDragged(eventHandlers.selectBoxDrag);
+        // //canvas.setOnMouseReleased(eventHandlers.selectBoxEnd);
+        
 
         GateList.add("AND");
         GateList.add("NOT");
@@ -48,6 +51,8 @@ public class App extends Application {
         parent.getChildren().addAll(treeCreator.makeTree(), canvas);
 
         placeItems.placeItem(canvas);
+
+        GateHashmaps.genHashmap(); // generate the hashmaps
 
         vBoxAll.getChildren().add(menuBar.makeMenuBar(parent));
         vBoxAll.getChildren().add(parent);
@@ -65,6 +70,5 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
 }
