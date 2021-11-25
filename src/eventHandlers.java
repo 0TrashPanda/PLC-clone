@@ -15,7 +15,7 @@ public class eventHandlers {
 
     static Line connectLine = new Line(0, 0, 0, 0);
     static Rectangle drawBox = new Rectangle();
-    
+
     static EventHandler<MouseEvent> selectBoxPress = new EventHandler<MouseEvent>() {
 
         @Override
@@ -92,9 +92,10 @@ public class eventHandlers {
             App.scene.setCursor(Cursor.DEFAULT);
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getTranslateX()
-                    + ((Circle) (t.getSource())).getParent().getTranslateX();
-            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
+            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getParent().getTranslateX()
+                    + ((Circle) (t.getSource())).getParent().getParent().getTranslateX();
+            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getParent().getTranslateY()
+                    + ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
                     + ((Circle) (t.getSource())).getParent().getTranslateY()
                     + ((Circle) (t.getSource())).getTranslateY();
             App.canvas.getChildren().add(connectLine);
