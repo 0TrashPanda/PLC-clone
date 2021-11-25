@@ -2,7 +2,3 @@
 .vscode/settings.json
 src/Main.java
 bin/Main.class
-workspace.code-workspace
-simulator/__pycache__/logicGates.cpython-310.pyc
-simulator/__pycache__/program.cpython-310.pyc
-.gitignore
