@@ -90,12 +90,12 @@ public class eventHandlers {
         public void handle(MouseEvent t) {
             placeItems.mState = mouseStates.select;
             App.scene.setCursor(Cursor.DEFAULT);
+            System.out.println(((Circle) (t.getSource())).getId());
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getParent().getTranslateX()
-                    + ((Circle) (t.getSource())).getParent().getParent().getTranslateX();
-            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getParent().getTranslateY()
-                    + ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
+            orgTranslateX = ((Circle) (t.getSource())).getParent().getParent().getTranslateX()
+                    + ((Circle) (t.getSource())).getParent().getTranslateX();
+            orgTranslateY = ((Circle) (t.getSource())).getParent().getParent().getTranslateY()
                     + ((Circle) (t.getSource())).getParent().getTranslateY()
                     + ((Circle) (t.getSource())).getTranslateY();
             App.canvas.getChildren().add(connectLine);

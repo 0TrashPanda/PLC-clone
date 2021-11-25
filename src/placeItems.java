@@ -21,7 +21,7 @@ public class placeItems {
             double y = event.getY();
             Dragboard db = event.getDragboard();
             if (db.hasString()) {
-                Group c = drawpoint.drawPoint(x, y);
+                Group c = drawpoint.drawPoint(x, y, true);
                 gateList.add(c);
                 canvas.getChildren().add(c);
                 event.setDropCompleted(true);
@@ -49,7 +49,7 @@ public class placeItems {
             }
 
             if (e.getButton() == MouseButton.PRIMARY) {
-                Group c = drawpoint.drawPoint(x, y);
+                Group c = drawpoint.drawPoint(x, y, true);
                 gateList.add(c);
                 canvas.getChildren().add(c);
 

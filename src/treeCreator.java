@@ -57,7 +57,7 @@ public class treeCreator {
                             cc.putString(getItem());
                             db.setContent(cc);
 
-                            Group dragImg = drawpoint.drawPoint(0, 0);
+                            Group dragImg = drawpoint.drawPoint(0, 0, false);
                             new Scene(dragImg).setFill(Color.TRANSPARENT);
                             db.setDragView(dragImg.snapshot(null, null));
                         } else {
