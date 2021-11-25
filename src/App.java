@@ -66,6 +66,12 @@ public class App extends Application {
             }
         });
 
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.R) {
+                DrawLines.update();
+            }
+        });
+
         stage.setScene(scene);
         stage.show();
     }

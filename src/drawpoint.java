@@ -6,8 +6,8 @@ import javafx.scene.text.Text;
 
 public class drawpoint {
 
-    public static ArrayList<Circle> inputList = new ArrayList<Circle>();
-    public static ArrayList<Circle> outputList = new ArrayList<Circle>();
+    public static ArrayList<String> inputList = new ArrayList<String>();
+    public static ArrayList<String> outputList = new ArrayList<String>();
 
     public static Group drawPoint(double x, double y, boolean increment) {
 
@@ -45,20 +45,16 @@ public class drawpoint {
             circle.setTranslateY(25 * i);
             circle.setId(App.gate + GateHashmaps.count.get(App.gate) + "I" + i);
             gateGroupIn.getChildren().add(circle);
-            inputList.add(circle);
-            circle.setOnMousePressed(eventHandlers.circlepress);
-            circle.setOnMouseDragged(eventHandlers.circledrag);
-            circle.setOnMouseReleased(eventHandlers.circleEnd);
+            inputList.add(circle.getId());
+            GateIO_Drag.DrawLine(circle); //* adds line connecting capabilities
         }
         for (int i = 0; i < GateHashmaps.outputs.get(App.gate); i++) {
             Circle circle = new Circle(0, 0, 10);
             circle.setId(App.gate + GateHashmaps.count.get(App.gate) + "Q" + i);
             circle.setTranslateY(25 * i);
             gateGroupOut.getChildren().add(circle);
-            outputList.add(circle);
-            circle.setOnMousePressed(eventHandlers.circlepress);
-            circle.setOnMouseDragged(eventHandlers.circledrag);
-            circle.setOnMouseReleased(eventHandlers.circleEnd);
+            outputList.add(circle.getId());
+            GateIO_Drag.DrawLine(circle); //* adds line connecting capabilities
         }
 
         Group gateGroup = new Group(gateCore, gateGroupIn, gateGroupOut);
