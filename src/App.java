@@ -35,7 +35,7 @@ public class App extends Application {
         stage.setMinWidth(500);
         HBox parent = new HBox();
         canvas.prefWidthProperty().bind(parent.widthProperty()); // &just like with = 100% (set with to parent with)
-        canvas.getStyleClass().add("canvas"); // css bullshit (makes class 'canvas')
+        canvas.getStyleClass().add("canvas"); // css bullshit //* (makes class 'canvas')
 
         // fixme: broken code lies ahead, approach with caution
         // //canvas.setOnMousePressed(eventHandlers.selectBoxPress);
