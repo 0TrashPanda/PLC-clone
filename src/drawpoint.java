@@ -43,14 +43,14 @@ public class drawpoint {
         for (int i = 0; i < GateHashmaps.inputs.get(App.gate); i++) {
             Circle circle = new Circle(0, 0, 10);
             circle.setTranslateY(25 * i);
-            circle.setId(App.gate + GateHashmaps.count.get(App.gate) + "I" + i);
+            circle.setId(App.gate+ "⌂" + GateHashmaps.count.get(App.gate)+ "⌂" + "I"+ "⌂" + i);
             gateGroupIn.getChildren().add(circle);
             inputList.add(circle.getId());
             GateIO_Drag.DrawLine(circle); //* adds line connecting capabilities
         }
         for (int i = 0; i < GateHashmaps.outputs.get(App.gate); i++) {
             Circle circle = new Circle(0, 0, 10);
-            circle.setId(App.gate + GateHashmaps.count.get(App.gate) + "Q" + i);
+            circle.setId(App.gate+ "⌂" + GateHashmaps.count.get(App.gate)+ "⌂" + "Q"+ "⌂" + i);
             circle.setTranslateY(25 * i);
             gateGroupOut.getChildren().add(circle);
             outputList.add(circle.getId());
