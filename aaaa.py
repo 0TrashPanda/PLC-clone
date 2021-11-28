@@ -1,7 +1,0 @@
-"[[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0],[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0],[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0]]"
-"[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0],[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0],[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0]"
-["[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0]","[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0]","[OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0]"]
-["OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0","OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0","OUTPUT⌂1⌂I⌂0, INPUT⌂1⌂I⌂0"]
-[["OUTPUT⌂1⌂I⌂0","INPUT⌂1⌂I⌂0"],["OUTPUT⌂1⌂I⌂0","INPUT⌂1⌂I⌂0"],["OUTPUT⌂1⌂I⌂0","INPUT⌂1⌂I⌂0"]]
-[[["OUTPUT","1","I","0"],["INPUT","1","I","0"],["OUTPUT","1","I","0"],["INPUT","1","I","0"],["OUTPUT","1","I","0"],["INPUT","1","I","0"]]]
-[[["OUTPUT",1,"I",0],["INPUT","1","I","0"],["OUTPUT",1,"I",0],["INPUT","1","I","0"],["OUTPUT",1,"I",0],["INPUT","1","I","0"]]]
