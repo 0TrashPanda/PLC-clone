@@ -1,4 +1,5 @@
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -40,18 +41,25 @@ public class GateIO_Drag {
         {
             Dragboard db = event.getDragboard();
             if (db.hasString()) {
+                Node start = null;
+                Node end = null;
                 if (drawpoint.outputList.contains(db.getString()) && drawpoint.inputList.contains(circle.getId())) {
                     String output = circle.getId();
                     String input = db.getString();
                     String[] io = {input, output};
                     DrawLines.LineList.add(io);
+                    start = DrawLines.getNodeFromId(input);
+                    end = DrawLines.getNodeFromId(output);
                 }
                 if (drawpoint.inputList.contains(db.getString()) && drawpoint.outputList.contains(circle.getId())) {
                     String input = circle.getId();
                     String output = db.getString();
                     String[] io = {input, output};
                     DrawLines.LineList.add(io);
+                    start = DrawLines.getNodeFromId(input);
+                    end = DrawLines.getNodeFromId(output);
                 }
+                DrawLines.DrawLine(start, end);
                 event.setDropCompleted(true);
             } else {
                 event.setDropCompleted(false);

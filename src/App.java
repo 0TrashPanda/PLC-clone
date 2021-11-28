@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -22,7 +23,8 @@ public class App extends Application {
 
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
-    public static Pane canvas = new Pane();
+    public static Group LineGroup = new Group();
+    public static Pane canvas = new Pane(LineGroup);
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -69,6 +71,9 @@ public class App extends Application {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.R) {
                 DrawLines.update();
+            }
+            else if (e.getCode() == KeyCode.C) {
+                LineGroup.getChildren().clear();
             }
         });
 

@@ -10,28 +10,34 @@ public class DrawLines {
     private static Node LineOutput;
 
     public static void update() {
-        System.out.println("reloading lines");
+        App.LineGroup.getChildren().clear();
         for (int i = 0; i < LineList.size(); i++) {
             String[] line = LineList.get(i);
             ArrayList<Node> AllList = getAllNodes(App.canvas);
             for (Node node : AllList) {
                 if (node.getId() != null) {
                     if (line[0] == node.getId()) {
-                        System.out.println("output");
-                        System.out.println(node);
                         LineInput = node;
                     }
                     if (line[1] == node.getId()) {
-                        System.out.println("input");
-                        System.out.println(node);
                         LineOutput = node;
                     }
                 }
             }
             DrawLine(LineInput, LineOutput);
-            System.out.println();
 
         }
+    }
+    public static Node getNodeFromId(String id) {
+        ArrayList<Node> AllList = getAllNodes(App.canvas);
+        for (Node node : AllList) {
+            if (node.getId() != null) {
+                if (id == node.getId()) {
+                    return node;
+                }
+            }
+        }
+        return null;
     }
 
     public static void DrawLine(Node start, Node end) {
@@ -46,7 +52,7 @@ public class DrawLines {
                 + end.getParent().getTranslateY()
                 + end.getTranslateY();
         Line line = new Line(startX, startY, endX, endY);
-        App.canvas.getChildren().add(line);
+        App.LineGroup.getChildren().add(line);
     }
 
     public static ArrayList<Node> getAllNodes(Parent root) {
