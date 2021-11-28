@@ -12,9 +12,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 
 public class treeCreator {
-
-    private static int cellCount = 0;
-
     static List<Gates> gates = Arrays.<Gates>asList(new Gates("INPUT", "IO"), new Gates("OUTPUT", "IO"),
             new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"), new Gates("AND", "BASIC"));
     static TreeItem<String> rootNode = new TreeItem<String>("GATES");
@@ -43,8 +40,6 @@ public class treeCreator {
 
         treeView.setCellFactory(tv -> new TreeCell<String>() {
             {
-                System.out.println("Cells created: " + (++cellCount));
-
                 setOnDragDetected(e -> {
                     if (!isEmpty()) {
                         if (App.GateList.contains(getItem())) {

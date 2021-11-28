@@ -41,16 +41,12 @@ public class GateIO_Drag {
             Dragboard db = event.getDragboard();
             if (db.hasString()) {
                 if (drawpoint.outputList.contains(db.getString()) && drawpoint.inputList.contains(circle.getId())) {
-                    System.out.println(circle.getId());
-                    System.out.println(db.getString());
                     String output = circle.getId();
                     String input = db.getString();
                     String[] io = {input, output};
                     DrawLines.LineList.add(io);
                 }
                 if (drawpoint.inputList.contains(db.getString()) && drawpoint.outputList.contains(circle.getId())) {
-                    System.out.println(circle.getId());
-                    System.out.println(db.getString());
                     String input = circle.getId();
                     String output = db.getString();
                     String[] io = {input, output};
