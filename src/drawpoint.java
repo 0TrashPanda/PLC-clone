@@ -8,6 +8,8 @@ public class drawpoint {
 
     public static ArrayList<String> inputList = new ArrayList<String>();
     public static ArrayList<String> outputList = new ArrayList<String>();
+    public static ArrayList<String> DataInputList = new ArrayList<String>();
+    public static ArrayList<String> DataOutputList = new ArrayList<String>();
 
     public static Group drawPoint(double x, double y, boolean increment) {
 
@@ -67,7 +69,8 @@ public class drawpoint {
             dataRect.setTranslateY(25 * i - 8);
             dataRect.setTranslateX(-8);
             gateGroupIn.getChildren().add(dataRect);
-            inputList.add(dataRect.getId());
+            DataInputList.add(dataRect.getId());
+            GateIO_Drag.DrawDataLine(dataRect); //* adds line connecting capabilities
         }
         for (int i = 0; i < GateHashmaps.DataOutputs.get(App.gate); i++) {
             Rectangle dataRect = new Rectangle(0, 0, 15, 15);
@@ -75,7 +78,8 @@ public class drawpoint {
             dataRect.setTranslateY(25 * i - 8);
             dataRect.setTranslateX(-8);
             gateGroupOut.getChildren().add(dataRect);
-            outputList.add(dataRect.getId());
+            DataOutputList.add(dataRect.getId());
+            GateIO_Drag.DrawDataLine(dataRect); //* adds line connecting capabilities
         }
 
         Group gateGroup = new Group(gateCore, gateGroupIn, gateGroupOut);
