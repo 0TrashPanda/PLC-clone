@@ -49,6 +49,10 @@ public class App extends Application {
         GateList.add("OR");
         GateList.add("INPUT");
         GateList.add("OUTPUT");
+        GateList.add("DATA_ADDER");
+        GateList.add("DATA_INPUT");
+        GateList.add("DATA_OUTPUT");
+
         parent.getChildren().addAll(treeCreator.makeTree(), canvas);
 
         placeItems.placeItem(canvas);

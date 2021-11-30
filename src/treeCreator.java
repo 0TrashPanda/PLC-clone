@@ -12,8 +12,16 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 
 public class treeCreator {
-    static List<Gates> gates = Arrays.<Gates>asList(new Gates("INPUT", "IO"), new Gates("OUTPUT", "IO"),
-            new Gates("NOT", "BASIC"), new Gates("OR", "EXOTIC"), new Gates("AND", "BASIC"));
+    static List<Gates> gates = Arrays.<Gates>asList(
+        new Gates("INPUT", "IO"),
+        new Gates("OUTPUT", "IO"),
+        new Gates("NOT", "BASIC"),
+        new Gates("OR", "EXOTIC"),
+        new Gates("AND", "BASIC"),
+        new Gates("DATA_ADDER", "DATA"),
+        new Gates("DATA_INPUT", "DATA"),
+        new Gates("DATA_OUTPUT", "DATA")
+        );
     static TreeItem<String> rootNode = new TreeItem<String>("GATES");
 
     public static TreeView<String> makeTree() {
