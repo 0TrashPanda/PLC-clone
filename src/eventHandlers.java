@@ -78,6 +78,12 @@ public class eventHandlers {
             double newTranslateY = orgTranslateY + offsetY;
             ((Group) (t.getSource())).getParent().setTranslateX(newTranslateX);
             ((Group) (t.getSource())).getParent().setTranslateY(newTranslateY);
+        }
+    };
+    static EventHandler<MouseEvent> dropMouse = new EventHandler<MouseEvent>() {
+        
+        @Override
+        public void handle(MouseEvent t) {
             DrawLines.update();
         }
     };

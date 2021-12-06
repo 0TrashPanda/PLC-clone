@@ -39,6 +39,7 @@ public class drawpoint {
         Group gateCore = new Group();
         gateCore.setOnMouseDragged(eventHandlers.dragMouse);
         gateCore.setOnMousePressed(eventHandlers.pressMouse);
+        gateCore.setOnMouseReleased(eventHandlers.dropMouse);
 
         gateCore.getChildren().addAll(temprect, gateText);
 
