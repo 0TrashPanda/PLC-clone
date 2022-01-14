@@ -27,3 +27,9 @@ def main():
 
 if __name__ == "__main__":  # test is program is imported or the main
     main()
+
+
+
+
+
+npt = "[OUTPUT1I0, INPUT1I0]"
