@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -22,7 +23,8 @@ public class App extends Application {
 
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
-    public static Pane canvas = new Pane();
+    public static Group LineGroup = new Group();
+    public static Pane canvas = new Pane(LineGroup);
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -34,8 +36,8 @@ public class App extends Application {
         stage.setMinHeight(250);
         stage.setMinWidth(500);
         HBox parent = new HBox();
-        canvas.prefWidthProperty().bind(parent.widthProperty()); // &just like with = 100% (set with to parent with)
-        canvas.getStyleClass().add("canvas"); // css bullshit //* (makes class 'canvas')
+        canvas.prefWidthProperty().bind(parent.widthProperty()); //& just like with = 100% (set with to parent with)
+        canvas.getStyleClass().add("canvas"); // css bullshit    //* (makes class 'canvas')
 
         // fixme: broken code lies ahead, approach with caution
         // //canvas.setOnMousePressed(eventHandlers.selectBoxPress);
@@ -47,11 +49,15 @@ public class App extends Application {
         GateList.add("OR");
         GateList.add("INPUT");
         GateList.add("OUTPUT");
+        GateList.add("DATA_ADDER");
+        GateList.add("DATA_INPUT");
+        GateList.add("DATA_OUTPUT");
+
         parent.getChildren().addAll(treeCreator.makeTree(), canvas);
 
         placeItems.placeItem(canvas);
 
-        GateHashmaps.genHashmap(); // generate the hashmaps
+        GateHashmaps.genHashmap(); //* generate the hashmaps
 
         vBoxAll.getChildren().add(menuBar.makeMenuBar(parent));
         vBoxAll.getChildren().add(parent);
@@ -69,6 +75,9 @@ public class App extends Application {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.R) {
                 DrawLines.update();
+            }
+            else if (e.getCode() == KeyCode.C) {
+                LineGroup.getChildren().clear();
             }
         });
 
