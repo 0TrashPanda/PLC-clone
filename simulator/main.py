@@ -10,8 +10,7 @@ def main():
     while usrinput != "exit":
         for gate in gates:  # loop through every gate
             program.updateGates()  # update the gate values
-            gate.outputsValue = eval(
-                f"{gate.func}({gate.inputsValue})")  # simulate the gate
+            gate.outputsValue = eval(f"{gate.func}({gate.inputsValue})")  # simulate the gate
             print(gate.outputsValue)
 
         # command input with / or continue by just pressing enter
@@ -28,3 +27,9 @@ def main():
 
 if __name__ == "__main__":  # test is program is imported or the main
     main()
+
+
+
+
+
+npt = "[OUTPUT1I0, INPUT1I0]"
