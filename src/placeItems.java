@@ -23,7 +23,7 @@ public class placeItems {
             if (db.hasString()) {
                 Group c = drawpoint.drawPoint(x, y, true);
                 gateList.add(c);
-                canvas.getChildren().add(c);
+                App.GateGroup.getChildren().add(c);
                 event.setDropCompleted(true);
             } else {
                 event.setDropCompleted(false);
@@ -51,7 +51,7 @@ public class placeItems {
             if (e.getButton() == MouseButton.PRIMARY) {
                 Group c = drawpoint.drawPoint(x, y, true);
                 gateList.add(c);
-                canvas.getChildren().add(c);
+                App.GateGroup.getChildren().add(c);
 
             }
         });

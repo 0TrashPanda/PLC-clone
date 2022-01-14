@@ -9,10 +9,9 @@ import javafx.stage.Stage;
 
 public class menuBar {
     public static HBox makeMenuBar(HBox parent) {
-
         Menu menu1 = new Menu("File");
-        MenuItem m1 = new MenuItem("save");
-        MenuItem m2 = new MenuItem("load");
+        MenuItem m1 = new MenuItem("Save As..");
+        MenuItem m2 = new MenuItem("Load");
         menu1.getItems().add(m1);
         menu1.getItems().add(m2);
         MenuBar menuBar = new MenuBar();
@@ -31,6 +30,7 @@ public class menuBar {
         m1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                
                 System.out.println("saved");
             }
         });        

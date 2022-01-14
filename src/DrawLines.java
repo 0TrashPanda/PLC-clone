@@ -13,7 +13,7 @@ public class DrawLines {
         App.LineGroup.getChildren().clear();
         for (int i = 0; i < LineList.size(); i++) {
             String[] line = LineList.get(i);
-            ArrayList<Node> AllList = getAllNodes(App.canvas);
+            ArrayList<Node> AllList = getAllNodes(App.GateGroup);
             for (Node node : AllList) {
                 if (node.getId() != null) {
                     if (line[0] == node.getId()) {
@@ -29,7 +29,7 @@ public class DrawLines {
         }
     }
     public static Node getNodeFromId(String id) {
-        ArrayList<Node> AllList = getAllNodes(App.canvas);
+        ArrayList<Node> AllList = getAllNodes(App.GateGroup);
         for (Node node : AllList) {
             if (node.getId() != null) {
                 if (id == node.getId()) {

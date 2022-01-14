@@ -2,7 +2,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
@@ -14,46 +13,6 @@ public class eventHandlers {
 
     static Line connectLine = new Line(0, 0, 0, 0);
     static Rectangle drawBox = new Rectangle();
-
-    static EventHandler<MouseEvent> selectBoxPress = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                App.scene.setCursor(Cursor.DEFAULT);
-                double offsetX = t.getX();
-                double offsetY = t.getY();
-                App.canvas.getChildren().add(connectLine);
-                connectLine.setStartX(offsetX);
-                connectLine.setStartY(offsetY);
-                connectLine.setEndX(offsetX);
-                connectLine.setEndY(offsetY);
-            }
-        }
-    };
-
-    static EventHandler<MouseEvent> selectBoxDrag = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                double offsetX = t.getX();
-                double offsetY = t.getY();
-                connectLine.setEndX(offsetX);
-                connectLine.setEndY(offsetY);
-            }
-        }
-    };
-    static EventHandler<MouseEvent> selectBoxEnd = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            if (placeItems.mState == mouseStates.select) {
-                Pane TempPane = (Pane) connectLine.getParent();
-                TempPane.getChildren().remove(connectLine);
-            }
-        }
-    };
 
     static EventHandler<MouseEvent> pressMouse = new EventHandler<MouseEvent>() {
 

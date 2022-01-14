@@ -21,10 +21,13 @@ public class App extends Application {
 
     public static String gate = "AND"; // *creates var of selected gates
 
+    ArrayList<ArrayList<String>>gateInfoList = new ArrayList<ArrayList<String>>();
+
     private static VBox vBoxAll = new VBox();
     public static Scene scene = new Scene(vBoxAll);
     public static Group LineGroup = new Group();
-    public static Pane canvas = new Pane(LineGroup);
+    public static Group GateGroup = new Group();
+    public static Pane canvas = new Pane(LineGroup, GateGroup);
 
     @Override
     public void start(Stage stage) throws Exception {
